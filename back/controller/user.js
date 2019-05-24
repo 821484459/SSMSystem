@@ -1,10 +1,7 @@
-const { exec, escape } = require('../db/mysql')
+const { exec } = require('../db/mysql')
 
 
 const login = async (userId, password, type) => {
-    // 对特殊符号进行转义例如转义掉注释符号
-    // userId = escape(userId)
-    console.log(userId,password,type)
     const sql = `
         select userId,type from user where userId='${userId}' and password='${password}' and type='${type}'
     `

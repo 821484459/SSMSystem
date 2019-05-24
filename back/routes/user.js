@@ -10,10 +10,8 @@ router.post('/login',async function (ctx, next) {
     console.log(data)
     if (data.userId) {
       ctx.body = new SuccessModel(data)
-      console.log(new SuccessModel())
       return
     }
-    console.log(new ErrorModel('登录失败'))
     ctx.body = new ErrorModel('登录失败')
 })
 

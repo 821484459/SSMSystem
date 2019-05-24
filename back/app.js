@@ -6,8 +6,9 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-const index = require('./routes/xueji')
-const users = require('./routes/user')
+const chengji = require('./routes/chengji')
+const user = require('./routes/user')
+const xueji = require('./routes/xueji')
 
 // error handler
 onerror(app)
@@ -18,11 +19,11 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
+// app.use(require('koa-static')(__dirname + '/public'))
 
-app.use(views(__dirname + '/views', {
-  extension: 'pug'
-}))
+// app.use(views(__dirname + '/views', {
+//   extension: 'pug'
+// }))
 
 // logger
 app.use(async (ctx, next) => {
@@ -33,8 +34,9 @@ app.use(async (ctx, next) => {
 })
 
 // routes
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+app.use(chengji.routes(), chengji.allowedMethods())
+app.use(xueji.routes(), xueji.allowedMethods())
+app.use(user.routes(), user.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
