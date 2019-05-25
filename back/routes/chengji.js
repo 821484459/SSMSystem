@@ -6,7 +6,7 @@ const {
   changeScore
  } = require('../controller/chengji')
 
- router.prefix('/chengji')
+ router.prefix('/api/chengji')
 
 // 创建成绩
 router.post('/new', async (ctx, next) => {
@@ -37,10 +37,10 @@ router.post('/new', async (ctx, next) => {
 
   // 修改成绩
   router.post('/change', async (ctx, next) => {
-    const { id,userId,nianji,banji,course,score } = ctx.request.body
+    const { id,score } = ctx.request.body
     let data = false
     try {
-        data = await changeScore(id,userId,nianji,banji,course,score)
+        data = await changeScore(id,score)
     } catch (err) {
         data = false
     }

@@ -7,7 +7,7 @@ const {
   changeStudent
  } = require('../controller/xueji')
 
-router.prefix('/xueji')
+router.prefix('/api/xueji')
 
 // 创建账号
 router.post('/new', async (ctx, next) => {

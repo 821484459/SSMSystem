@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>教师界面</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</head>
+<style>
+    body {
+        margin: 0 auto;
+        font-family: "Arial", "Microsoft YaHei";
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+    .pg-header {
+        height: 50px;
+        min-width: 1190px;
+        background-color: #204d74;
+    }
+
+    .menus {
+        width: 200px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        top: 50px;
+        background-color: skyblue;
+        height: 100%;
+    }
+
+    .content {
+        position: absolute;
+        left: 200px;
+        right: 0;
+        top: 50px;
+        bottom: 0;
+        overflow: scroll;
+        min-width: 900px;
+        background-color: #EEEEEE;
+    }
+
+    .logo {
+        width: 200px;
+        height: 50px;
+        font-weight: bold;
+        float: left;
+        color: white;
+        font-size: 18px;
+        line-height: 50px;
+        text-align: center;
+        border-right: 1px solid white;
+    }
+
+    .rmenus a {
+        float: right;
+        display: inline-block;
+        padding: 0 20px;
+        font-weight: bold;
+        color: white;
+        line-height: 50px;
+        text-decoration: none;
+
+    }
+
+    .rmenus a:hover {
+        background-color: #269abc;
+        text-decoration: none;
+    }
+
+    .menus a {
+        width: 200px;
+        height: 50px;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        color: black;
+        font-size: 18px;
+        text-align: center;
+        line-height: 50px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .menus a:hover {
+        background-color: #269abc;
+    }
+
+    .tabled {
+        margin-left: 500px;
+        width: 500px;
+        font-weight: bolder;
+    }
+
+    .chengji {
+        margin-top: 50px;
+        font-weight: bold;
+        font-size: 20px;
+        width: 500px;
+        text-align: center;
+    }
+
+    .dis {
+        display: none;
+    }
+</style>
+
+<body>
+    <div class="pg-header">
+        <div class="logo">教师界面</div>
+        <div class="rmenus">
+            <a href="/login.html">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                退出登录
+            </a>
+        </div>
+    </div>
+    <div class="pg-body">
+        <div class="menus">
+            <a id="chengji">录入成绩</a>
+            <a id="change">查询成绩</a>
+            <a id='ToC'>创建学籍</a>
+            <a id="cha">查询学籍</a>
+        </div>
+        <div class="dis" id="body">
+            <div class="tabled">
+                <h3 style="margin:10px 0px 20px 100px;">录入成绩</h3>
+                年级：<select name="nianji" id="nian" style="margin:0px 10px 20px 0">
+                    <option value="">请选择</option>
+                    <option value="1">一</option>
+                    <option value="2">二</option>
+                    <option value="3">三</option>
+                    <option value="4">四</option>
+                    <option value="5">五</option>
+                    <option value="6">六</option>
+                </select>
+                班级：<select name="banji" id="ban" style="margin:0px 10px 20px 0">
+                    <option value="">请选择</option>
+                    <option value="1">一</option>
+                    <option value="2">二</option>
+                    <option value="3">三</option>
+                    <option value="4">四</option>
+                    <option value="5">五</option>
+                    <option value="6">六</option>
+                </select>
+                科目：<select name="kemu" id="ke" style="margin:0px 10px 20px 0">
+                    <option value="">请选择</option>
+                    <option value="语文">语文</option>
+                    <option value="数学">数学</option>
+                    <option value="英语">英语</option>
+                    <option value="美术">美术</option>
+                    <option value="科学">科学</option>
+                    <option value="体育">体育</option>
+                </select>
+                <div style="margin-bottom: 10px">
+                    <label>
+                        学号：<input id="userId" type="text">
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        成绩：<input id="score" type="text">
+                    </label>
+                </div>
+                <div>
+                    <button class="btn btn-success col-xs-offset-2" id="confirm"
+                        style="width:80px; margin-top: 50px;">录入</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="dis" id="toCreate">
+            <div style="margin:100px 0  0 500px;">
+                <h3 style="margin: 0 0 30px 50px;">创建学生学籍</h3>
+                <label>
+                    创建的学号：<input type="text" id="user">
+                </label>
+                <button id="create" class="btn btn-success" style="width:80px; margin-left: 20px;">创建</button>
+            </div>
+        </div>
+
+        <div id="container" class="dis">
+        </div>
+
+        <div id="chaxun" class="dis">
+            <div style="margin:10px 0 20px 500px;">
+                <h3 style="margin: 0 0 20px 40px;">查询学生学籍</h3>
+                <label>
+                    查询的学号：<input type="text" id="queryId">
+                </label>
+                <button id="query" class="btn btn-success" style="width:80px; margin-left: 20px;">查询</button>
+            </div>
+            <div id='in'></div>
+        </div>
+
+        <div id='down' class="dis">
+        </div>
+    </div>
+    </div>
+</body>
+<script>
+    var cookie = getCookie('userId')
+    function getCookie(cookiename) {
+        var name = cookiename + "=";
+        var cs = document.cookie.split(';');
+        for (var i = 0; i < cs.length; i++) {
+            var c = cs[i].trim();
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+    }
+    var c = false
+    var x = false
+    // 发送 post 请求
+    function post(url, data = {}) {
+        return $.ajax({
+            type: 'post',
+            url,
+            data: JSON.stringify(data),
+            contentType: "application/json",
+        })
+    }
+
+    $('#chengji').click(() => {
+        document.getElementById('body').className = ''
+        document.getElementById('down').className = 'dis'
+        document.getElementById('container').className = 'dis'
+        document.getElementById('toCreate').className = 'dis'
+        document.getElementById('chaxun').className = 'dis'
+    })
+
+    $('#cha').click(() => {
+        document.getElementById('body').className = 'dis'
+        document.getElementById('down').className = 'dis'
+        document.getElementById('container').className = 'dis'
+        document.getElementById('toCreate').className = 'dis'
+        document.getElementById('chaxun').className = ''
+        $('#query').click(() => {
+            document.getElementById('in').innerHTML = ''
+            const userId = $('#queryId').val()
+            console.log(userId)
+            const url = '/api/xueji/get'
+            const data = {
+                userId
+            }
+            post(url, data).then(res => {
+                console.log(res)
+                if (res.errno === 0) {
+                    const data = res.data
+                    createBiao()
+                    createXueji('姓名', data.name)
+                    createXueji('性别', data.sex)
+                    createXueji('学号', data.userId)
+                    createXueji('民族', data.mingzu)
+                    createXueji('出生年月', data.birthday)
+                    createXueji('入学年月', data.schoolday)
+                    createXueji('政治背景', data.zhengzhi)
+                    createXueji('家庭地址', data.address)
+                    createXueji('监护人', data.parent)
+                    createXueji('监护人联系方式', data.phone)
+                    createXueji('监护人工作情况', data.work)
+                } else {
+                    alert(res.message)
+                }
+            })
+        })
+    })
+
+    $('#ToC').click(() => {
+        document.getElementById('body').className = 'dis'
+        document.getElementById('down').className = 'dis'
+        document.getElementById('container').className = 'dis'
+        document.getElementById('toCreate').className = ''
+        document.getElementById('chaxun').className = 'dis'
+
+        $('#create').click(() => {
+            const userId = $('#user').val()
+            if (!userId) {
+                alert('请输入学号')
+                return
+            }
+            const url = '/api/xueji/new'
+            const data = {
+                userId,
+            }
+            post(url, data).then(res => {
+                console.log(res)
+                if (res.data === true) {
+                    alert('创建成功')
+                } else {
+                    alert('创建失败')
+                }
+            })
+        })
+    })
+
+    $('#confirm').click(() => {
+        const nianji = $('#nian option:selected').val()
+        const banji = $('#ban option:selected').val()
+        const course = $('#ke option:selected').val()
+        const userId = $("#userId").val()
+        const score = $("#score").val()
+        if (!nianji || !banji || !course || !userId || !score) {
+            alert('请完整填写信息')
+            return
+        }
+        const url = '/api/chengji/new'
+        const data = {
+            userId,
+            nianji,
+            banji,
+            course,
+            score
+        }
+        post(url, data).then(res => {
+            console.log(res)
+            if (res.errno === 0) {
+                alert('录入成功')
+            } else {
+                alert('录入失败')
+            }
+        })
+    })
+
+    $('#change').click(() => {
+        document.getElementById('body').className = 'dis'
+        document.getElementById('down').className = 'dis'
+        document.getElementById('container').className = ''
+        document.getElementById('toCreate').className = 'dis'
+        document.getElementById('chaxun').className = 'dis'
+
+        if (!c) {
+            createBiaoTou()
+            createChengji('', '年级', '班级', '科目', '成绩')
+            $('#look').click(() => {
+                console.log(888)
+                const userId = document.getElementById('xuehao').value
+                if (!userId) {
+                    alert('请输入学号')
+                    return
+                }
+                const url = '/api/chengji/get'
+                const data = {
+                    userId
+                }
+                post(url, data).then(res => {
+                    console.log(res)
+                    if (res.data) {
+                        const data = res.data
+                        for (let i = 0; i < data.length; i++) {
+                            createChengji(data[i].id, data[i].nianji, data[i].banji, data[i].course, data[i].score)
+                        }
+                        // createButton()
+                        // $('#toChange').click(() => {
+                        //     const tr = document.getElementsByTagName('tr')
+                        //     console.log(tr[0])
+                        //     return
+                        //     const num = []
+                        //     for (let i = 0; i < tr.length; i++) {
+                        //         let obj = {}
+                        //         obj.id = tr[i].id
+                        //         // obj.score = tr[i].
+                        //     }
+                        //     if (!nianji || !banji || !course || !userId || !score) {
+                        //         alert('请完整填写信息')
+                        //         return
+                        //     }
+                        //     const url = '/api/chengji/update'
+                        //     const data = {
+                        //         id,
+                        //         score
+                        //     }
+                        //     post(url, data).then(res => {
+                        //         console.log(res)
+                        //         if (res.errno === 0) {
+                        //             alert('录入成功')
+                        //         } else {
+                        //             alert('录入失败')
+                        //         }
+                        //     })
+                        // })
+                    } else {
+                        alert('查询失败')
+                    }
+                })
+            })
+        }
+        c = true
+
+    })
+
+
+
+    function createBiaoTou() {
+        const all = document.createElement('div')
+        all.className = 'tabled'
+        all.id = 'idd'
+        const h3 = document.createElement('h3')
+        h3.style = 'margin-left:180px;'
+        h3.innerText = '修改成绩'
+        const table = document.createElement('table')
+
+        const label = document.createElement('label')
+        label.innerText = '学号：'
+        const text = document.createElement('input')
+        text.id = 'xuehao'
+        text.type = 'text'
+        label.appendChild(text)
+        const button = document.createElement('button')
+        button.className = 'btn btn-success cil-xs-offset-2'
+        button.id = 'look'
+        button.style = 'width:80px; margin:0px 0 0 20px'
+        button.innerText = '查询'
+
+        table.border = '1'
+        table.cellSpacing = '0'
+        table.cellPadding = '3'
+        table.className = 'chengji'
+        table.id = 'toAdd'
+        all.appendChild(h3)
+        all.appendChild(label)
+        all.appendChild(button)
+        all.appendChild(table)
+        const body = document.getElementById('container')
+        body.appendChild(all)
+    }
+
+    function createChengji(id, nianji, banji, course, score) {
+        const tr = document.createElement('tr')
+        const td1 = document.createElement('td')
+        const td2 = document.createElement('td')
+        const td3 = document.createElement('td')
+        const td4 = document.createElement('td')
+        td4.className = 'col-xs-3'
+        // if (score != '成绩') {
+        //     const input = document.createElement('input')
+        //     input.type = 'text'
+        //     input.size = "15"
+        //     input.style = "width:100px;height:30px;"
+        //     input.value = score
+        //     input.id = 'id' + id
+        //     td4.appendChild(input)
+        // } else {
+        //     td4.innerText = score
+        // }
+        td4.innerText = score
+        tr.setAttribute('uid', id)
+        td1.className = 'col-xs-3'
+        td2.className = 'col-xs-3'
+        td3.className = 'col-xs-3'
+        td1.innerText = nianji
+        td2.innerText = banji
+        td3.innerText = course
+        tr.appendChild(td1)
+        tr.appendChild(td2)
+        tr.appendChild(td3)
+        tr.appendChild(td4)
+        document.getElementById('toAdd').appendChild(tr)
+    }
+
+    function createXueji(key, value) {
+        const tr = document.createElement('tr')
+        const td1 = document.createElement('td')
+        const td2 = document.createElement('td')
+        td1.className = 'col-xs-3'
+        td1.innerText = key
+        td2.innerText = value
+        tr.appendChild(td1)
+        tr.appendChild(td2)
+        document.getElementById('toAdd2').appendChild(tr)
+    }
+
+    function createBiao() {
+        const all = document.createElement('div')
+        all.className = 'tabled'
+        const table = document.createElement('table')
+        table.className = 'table'
+        const tbody = document.createElement('tbody')
+        tbody.id = 'toAdd2'
+        table.appendChild(tbody)
+        all.appendChild(table)
+        const down = document.getElementById('in')
+        down.appendChild(all)
+    }
+</script>
+
+</html>

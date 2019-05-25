@@ -22,10 +22,9 @@ const getScore = async (userId) => {
     return null
 }
 
-const changeScore = async (id,userId,nianji,banji,course,score) => {
+const changeScore = async (id,score) => {
     let sql = `
-    update score set userId='${userId}', nianji='${nianji}', 
-    banji='${banji}', course='${course}', score='${score}' where id='${id}'
+    update score set score='${score}' where id='${id}'
     `
     const data = await exec(sql)
     if (data.affectedRows > 0) {
